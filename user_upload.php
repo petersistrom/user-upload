@@ -34,7 +34,7 @@ if(!array_key_exists("file", $options)){//a file always needs to be passed as an
 if(array_key_exists("dry_run", $options)){//dry run no database calls
   $csvParser = new CSVParser();
   $csvParser->parseCSV($options['file']);
-  fwrite(STDOUT, "CSV succesfully parsed in dry run mode ".count($csvParser->getUsers())." valid users in CSV\n");
+  fwrite(STDOUT, "CSV succesfully parsed in dry run mode ".count($csvParser->getUsers())." valid users in CSV - database was not updated\n");
 }
 
 
