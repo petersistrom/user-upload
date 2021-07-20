@@ -8,14 +8,12 @@ class CSVParser {
   private $emailColIndex;
 
   public function parseCSV($csv){
-    if(file_exists($csv)){
-      $file = file($csv);
-        foreach ($file as $key =>  $line) {
+        foreach ($csv as $key =>  $line) {
           
           $thisUser = new User();
           
-          if ($key === array_key_first($file)){ //first line will be column names
-            $this->getColumnIndices(str_getcsv($line));
+          if ($key === array_key_first($csv)){ //first row will be column names
+            $this->setColumnIndices(str_getcsv($line));
           }else{
 
             $row = str_getcsv($line);
@@ -29,20 +27,16 @@ class CSVParser {
               $thisUser->setEmail($email);
               array_push($this->users, $thisUser);
             }else{//Email not valid skip user
-              fwrite(STDOUT, $row[$this->emailColIndex].' is not a valid Email - user not added') ;
+              fwrite(STDOUT, $row[$this->emailColIndex].' is not a valid email - user not added') ;
               echo "\n";
             }
           }
         }
-    }else{
-      fwrite(STDOUT, $csv.' does not exist');
-      echo "\n";
-      die;
+      fwrite(STDOUT, "CSV succesfully parsed - ".count($this->users)." valid users in CSV\n");
     }
-  }
   
-  //Assumption - the CSV has to contain columns 'name', 'surname' and 'email'. It may contain extra columns but they will not be parsed.
-  private function getColumnIndices($columnRow){//checks that name, surname and email exists and sets the column indexe
+  //Assumption - the CSV has to contain column headings 'name', 'surname' and 'email'. It may contain extra columns but they will not be parsed.
+  private function setColumnIndices($columnRow){//checks that name, surname and email exists and sets the column index
     foreach($columnRow as $key => $column){
       if(trim($column) == "name"){
         $this->firstnameColIndex = $key;
@@ -58,7 +52,7 @@ class CSVParser {
       die;
     }
   }
-  //Assumption - Names are allowwed to conatin special characters
+  //Assumption - Names are allowwed to contain special characters
   private function capatiliseName($name){
     $lowercaseName = strtolower(trim($name));
     return ucfirst($lowercaseName);
@@ -72,7 +66,7 @@ class CSVParser {
     }
   }
 
-  public function getUsers(){  return $this->users;}
+  public function getUsers(){return $this->users;}
 
 }
 

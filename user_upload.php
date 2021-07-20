@@ -18,7 +18,6 @@ $longopts  = array(
 );
 
 $options = getopt($shortopts, $longopts);
-$dry_run = false;
 
 if (array_key_exists("help", $options)){//if help is an argument show help and do nothing else
   showHelp();
@@ -29,14 +28,17 @@ if(!array_key_exists("file", $options)){//a file always needs to be passed as an
   fwrite(STDOUT, "ERROR - No file, please include a CSV file as an argument using the --file flag\n");
   showHelp();
   die;
+}elseif(!file_exists($options['file'])){
+    fwrite(STDOUT, $options['file'].' does not exist');
+    echo "\n";
+    die;
 }
 
 if(array_key_exists("dry_run", $options)){//dry run no database calls
   $csvParser = new CSVParser();
-  $csvParser->parseCSV($options['file']);
-  fwrite(STDOUT, "CSV succesfully parsed in dry run mode ".count($csvParser->getUsers())." valid users in CSV - database was not updated\n");
+  $csv = file($options['file']);
+  $csvParser->parseCSV($csv);
+  var_dump($csvParser->getUsers());
 }
-
-
 
 ?>
