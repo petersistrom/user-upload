@@ -46,15 +46,8 @@ class DB{
     }
   }
   
-  public function createTable(){
+  public function executeSQL($sql){//handle errors
     $this->connect();
-    $sql = "CREATE TABLE users(
-              id INT PRIMARY KEY AUTO_INCREMENT,
-              email VARCHAR(255) UNIQUE,
-              firstname VARCHAR(255),
-              lastname VARCHAR(255)
-            );";
-    
     $result = $this->connection->query($sql);
     if($result == true){
         return $result;
@@ -63,8 +56,16 @@ class DB{
       return false;
     }
   }
+ public function insert($table, $columns, $values){
+        $this->connect();
+        $sql = "INSERT INTO ".$table." ".$columns." VALUES ".$values;        
+        $sql = $this->connection->query($sql);
+        if($sql == true){
+            return $sql;
+        }else{
+          echo("Error description: " . $this->connection -> error);
+          return false;
+        }
+    }
 }
-
-// public function insert($)
-
 ?>

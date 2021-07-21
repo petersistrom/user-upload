@@ -17,9 +17,9 @@ class CSVParser {
           }else{
 
             $row = str_getcsv($line);
-            $email =  $row[$this->emailColIndex];
-            $firstname = $row[$this->firstnameColIndex];
-            $lastname = $row[$this->lastnameColIndex];
+            $email =  trim($row[$this->emailColIndex]);
+            $firstname = trim($row[$this->firstnameColIndex]);
+            $lastname = trim($row[$this->lastnameColIndex]);
 
             if($this->isValidEmail($email)){//Add user to User array
               $thisUser->setFirstname($this->capatiliseName($firstname));
@@ -54,12 +54,12 @@ class CSVParser {
   }
   //Assumption - Names are allowwed to contain special characters
   private function capatiliseName($name){
-    $lowercaseName = strtolower(trim($name));
+    $lowercaseName = strtolower($name);
     return ucfirst($lowercaseName);
   }
 
   private function isValidEmail($email){
-    if (filter_var(trim($email), FILTER_VALIDATE_EMAIL)) {
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
       return true;
     }else{
       return false;
