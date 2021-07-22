@@ -6,8 +6,8 @@
  *
  */
 include ('help.php');
-include ('CSVParser.php');
-include ('DB.php');
+include ('classes/CSVParser.php');
+include ('classes/DB.php');
 
 //Change to your database name
 $dbName = "php_challenge";
