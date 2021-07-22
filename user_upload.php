@@ -47,12 +47,17 @@ if(array_key_exists("dry_run", $options)){
 elseif(array_key_exists("u", $options) && array_key_exists("p", $options) && array_key_exists("h", $options)){
   
   $db = new DB($options["h"], $options["u"], $options["p"], $dbName);
-  
+
   //create table and nothing else
   if(array_key_exists("create_table", $options)){
     createTable($db);
   //Live run - parse users and insert into database
   }else{
+    //check table exists  
+    if(!$db->tableExists("users")){
+      fwrite(STDOUT, "ERROR - table 'users' does not exist. Please run --create_table first".PHP_EOL);
+      die;
+    };
     $parsedCSV = parseCSV($options['file']);
     insertUsersintoDB($parsedCSV->getUsers(), $db);
   }   

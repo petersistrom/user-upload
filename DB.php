@@ -75,5 +75,16 @@ class DB{
       return false;
     }
   }
+  public function tableExists($table){
+    //Code to see if Table Exists
+    $this->connect();
+    $result = $this->connection->query("select 1 from ".$table);
+    if($result == true){
+        return $result;
+    }else{
+      return false;
+    }
+    $this->close();
+  }
 }
 ?>
