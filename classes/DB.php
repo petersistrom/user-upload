@@ -27,10 +27,10 @@ class DB{
     }
   }
   
- public function close() {
-		return $this->connection->close();
-	}
-  
+  public function close() {
+    return $this->connection->close();
+  }
+
   public function dropTableIfExists($table){
     $sql = "DROP TABLE IF EXISTS ".$table;
     $result = $this->connection->query($sql);
@@ -51,7 +51,7 @@ class DB{
       return false;
     }
   }
- public function insertRawSQL($table, $columns, $values){
+  public function insertRawSQL($table, $columns, $values){
     $sql = "INSERT INTO ".$table." ".$columns." VALUES ".$values;        
     $result = $this->connection->query($sql);
     if($result == true){
