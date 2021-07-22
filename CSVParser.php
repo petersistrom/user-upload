@@ -27,12 +27,11 @@ class CSVParser {
               $thisUser->setEmail($email);
               array_push($this->users, $thisUser);
             }else{//Email not valid skip user
-              fwrite(STDOUT, $row[$this->emailColIndex].' is not a valid email - user not added') ;
-              echo "\n";
+              fwrite(STDOUT, $row[$this->emailColIndex].' is not a valid email - user not added'.PHP_EOL) ;
             }
           }
         }
-      fwrite(STDOUT, "CSV succesfully parsed - ".count($this->users)." valid users in CSV\n");
+      fwrite(STDOUT, "CSV succesfully parsed - ".count($this->users)." valid users in CSV".PHP_EOL);
     }
   
   //Assumption - the CSV has to contain column headings 'name', 'surname' and 'email'. It may contain extra columns but they will not be parsed.
@@ -47,8 +46,7 @@ class CSVParser {
       }
     }
     if(!isset($this->firstnameColIndex) || !isset($this->lastnameColIndex) || !isset($this->emailColIndex)){
-      fwrite(STDOUT, $filename.' not a valid CSV please include `name`, `surname` and `email` columns');
-      echo "\n";
+      fwrite(STDOUT, $filename.' not a valid CSV please include `name`, `surname` and `email` columns'.PHP_EOL);
       die;
     }
   }
