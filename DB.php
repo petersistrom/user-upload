@@ -1,4 +1,10 @@
 <?php
+/**
+ * MySQL Database class for user_upload script
+ *
+ * Author: Peter Sistrom, July 2021
+ *
+ */
 class DB{
 
   private $dbhost;

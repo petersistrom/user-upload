@@ -1,8 +1,10 @@
 <?php
-// turn off for production
-// error_reporting(0);
-// ini_set('display_errors', 'On');
-//
+/**
+ * Takes a CSV file containing users and inserts the users into a MySQL database
+ *
+ * Author: Peter Sistrom, July 2021
+ *
+ */
 include ('help.php');
 include ('CSVParser.php');
 include ('DB.php');
@@ -86,9 +88,10 @@ function createTable($db){
 function insertUsersintoDB($users, $db){
   $db->connect();
   foreach($users as $user){
+    $table = "users";
     $cols = ['email', 'name', 'surname'];
     $vals = [$user->getEmail(), $user->getFirstname(), $user->getLastname()];
-    $db->insertPreparedSQL("users", $cols, $vals);
+    $db->insertPreparedSQL($table, $cols, $vals);
   }
   $db->close();
 }

@@ -1,4 +1,10 @@
 <?php
+/**
+ * CSV Parer for user_pload script - takes the CSV file and parses users into User class for data transimision
+ *
+ * Author: Peter Sistrom, July 2021
+ *
+ */
 include ('User.php');
 
 class CSVParser {
