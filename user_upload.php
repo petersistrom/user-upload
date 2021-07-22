@@ -54,12 +54,12 @@ elseif(array_key_exists("u", $options) && array_key_exists("p", $options) && arr
   //Live run - parse users and insert into database
   }else{
     //check table exists  
-    if(!$db->tableExists("users")){
+    if($db->tableExists("users")){
+      $parsedCSV = parseCSV($options['file']);
+      insertUsersintoDB($parsedCSV->getUsers(), $db);        
+    }else{
       fwrite(STDOUT, "ERROR - table 'users' does not exist. Please run --create_table first".PHP_EOL);
-      die;
-    };
-    $parsedCSV = parseCSV($options['file']);
-    insertUsersintoDB($parsedCSV->getUsers(), $db);
+    }
   }   
 }else{
   fwrite(STDOUT, "ERROR - Database configuration required - username, password, host".PHP_EOL);
